@@ -1,0 +1,12 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background: white;
+}
+
+.footer__link {
+  text-transform: uppercase;
+  color: grey;
+  font-weight: bold;
+}
