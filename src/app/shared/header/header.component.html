@@ -1,12 +1,20 @@
-<mat-toolbar class="header" role="heading">
+<mat-toolbar class="header" role="heading" color="accent">
   <a routerLink="/landing">
     <img class="header__brand" src="assets/images/brand.jpeg" alt="Brand" />
   </a>
   <nav class="navbar" role="navigation">
-    <button class="navbar-item" routerLink="/landing">Inicio</button>
-    <button class="navbar-item" routerLink="/products">Products</button>
-    <button class="navbar-item" routerLink="/shopping-cart">
+    <a class="navbar-item" routerLink="/landing" routerLinkActive="active">
+      Inicio
+    </a>
+    <a class="navbar-item" routerLink="/products" routerLinkActive="active">
+      Products
+    </a>
+    <a
+      class="navbar-item"
+      routerLink="/shopping-cart"
+      routerLinkActive="active"
+    >
       Shopping Cart
-    </button>
+    </a>
   </nav>
 </mat-toolbar>
