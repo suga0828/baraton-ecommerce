@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  categoriesApiUrl: 'assets/json/categories.json',
+  productsApiUrl: 'assets/json/products.json',
 };
