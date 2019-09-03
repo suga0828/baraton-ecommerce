@@ -1,0 +1,39 @@
+mat-sidenav {
+  width: 250px;
+  max-height: calc(100vh - 64px);
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.grid__item {
+  flex: 0 1 100%;
+  padding: 20px;
+}
+
+@media screen and (min-width: 480px) {
+  .grid__item {
+    flex-basis: 50%;
+  }  
+}
+
+@media screen and (min-width: 768px) {
+  .grid__item {
+    flex-basis: 33.33%;
+  }  
+}
+
+@media screen and (min-width: 1024px) {
+  .grid__item {
+    flex-basis: 25%;
+  }  
+}
+
+@media screen and (min-width: 1180px) {
+  .grid__item {
+    flex-basis: 20%;
+  }  
+}

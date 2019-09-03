@@ -8,7 +8,7 @@ import { Product } from '../../interfaces/product';
   styleUrls: ['./product-item.component.scss']
 })
 export class ProductItemComponent implements OnInit {
-  @Input() public item: Product;
+  @Input() public product: Product;
 
   constructor() {}
 

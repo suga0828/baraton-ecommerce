@@ -1,21 +1,23 @@
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <!-- <app-filters></app-filters> -->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-grid-list cols="3" rowHeight="2:1">
-      <mat-grid-tile>
-        <app-product-item [item]="item"></app-product-item>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-item></app-product-item>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-item></app-product-item>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <app-product-item></app-product-item>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <button
+      type="button"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawer.toggle()"
+      *ngIf="isHandset$ | async">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <div class="grid">
+      <app-product-item *ngFor="let product of products" class="grid__item" [product]="product"></app-product-item>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,16 +1,18 @@
 <mat-card class="example-card">
-  <p *ngIf="item">{{ item | json }}</p>
   <mat-card-header>
-    <mat-card-title>reprehenderit</mat-card-title>
-    <mat-card-subtitle>Available</mat-card-subtitle>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle>{{ product.quantity }} units</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>
-      $6,904
+      {{ product.price }}
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
+    <button mat-button>
+      <span *ngIf="product.available; else unavailable">Available</span>
+      <ng-template #unavailable>Unavailable</ng-template>
+    </button>
     <button mat-button>Add to shopping cart</button>
   </mat-card-actions>
 </mat-card>
