@@ -12,6 +12,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -28,7 +30,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatSliderModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    LayoutModule,
+    MatListModule
   ],
   exports: [
     MatButtonModule,
@@ -41,7 +45,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatSliderModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    LayoutModule,
+    MatListModule
   ]
 })
 export class SharedModule {}
