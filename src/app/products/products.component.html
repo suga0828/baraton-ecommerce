@@ -1,13 +1,21 @@
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened>
-    <app-filters></app-filters>
+    <!-- <app-filters></app-filters> -->
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-grid-list cols="3" rowHeight="2:1">
-      <mat-grid-tile>1</mat-grid-tile>
-      <mat-grid-tile>2</mat-grid-tile>
-      <mat-grid-tile>3</mat-grid-tile>
-      <mat-grid-tile>4</mat-grid-tile>
+      <mat-grid-tile>
+        <app-product-item></app-product-item>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-product-item></app-product-item>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-product-item></app-product-item>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-product-item></app-product-item>
+      </mat-grid-tile>
     </mat-grid-list>
   </mat-sidenav-content>
 </mat-sidenav-container>
