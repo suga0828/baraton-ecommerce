@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -17,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [],
   imports: [
     CommonModule,
 
@@ -33,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatIconModule
   ],
-  exports: [HeaderComponent, FooterComponent, MatButtonModule,
+  exports: [
+    MatButtonModule,
     MatToolbarModule,
     MatGridListModule,
     MatSidenavModule,
@@ -43,6 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSliderModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatIconModule]
+    MatIconModule
+  ]
 })
-export class SharedModule { }
+export class SharedModule {}
