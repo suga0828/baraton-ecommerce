@@ -30,11 +30,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   searchSubscription: Subscription;
 
   filterByOptions = [
-    { name: 'Show availables'},
-    { name: 'Show unavailables'},
-    { name: 'prices'},
-    { name: 'stock'},
+    { name: 'Only Availables' },
+    { name: 'Only prices smaller than' },
+    { name: 'Only amount smaller than' },
   ];
+
+  minPrice = 0;
+  maxPrice = 0;
 
   sortByOptions = [
     {
@@ -77,7 +79,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
   getProducts() {
     this.productsService.getProducts().subscribe((products: Product[]) => {
       this.products = products;
+      this.takePrices(this.products);
     });
+  }
+
+  takePrices(products) {
+    for (let i = 0; i < products.length; i++) {
+      const price = Number(products[i].price.replace(/[^0-9.-]+/g,""))
+      if (this.minPrice > price) {
+        this.minPrice = price;
+      }
+      if (this.maxPrice < price) {
+        this.maxPrice = price;
+      }
+    }
   }
 
   getCategories() {
@@ -119,6 +134,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   sortBy(name, sort) {
+    console.log(name, sort);
     if (name === 'Sort by Availability') {
       this.products = this.products.sort(function(x, y) {
         return (x.available === y.available)? 0 : x.available? -1 : 1;
@@ -129,11 +145,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
         return x.quantity - y.quantity;
       });
     }
-    if (sort.name === 'Sort by Price') {
+    if (name === 'Sort by Price') {
       this.products = this.products.sort( (x, y) => {
-        const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g,""))
-        const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g,""))
-        console.log(firstPriceToNumber, secondPriceToNumber)
+        const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g,""));
+        const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g,""));
         return firstPriceToNumber - secondPriceToNumber;
       });
     }
@@ -145,7 +160,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  filterBy(sort) {
+  filterBy(sort, value?) {
     console.log(sort)
     if (sort.name === 'Show availables') {
       this.products = this.products.filter(item => {
@@ -153,10 +168,24 @@ export class ProductsComponent implements OnInit, OnDestroy {
         return item.available === true;
       });
     }
-    if (sort.name === 'prices') {
+    if (sort.name === 'Only prices smaller than') {
       this.products = this.products.filter(item => {
-        return
+        const priceToNumber = Number(item.price.replace(/[^0-9.-]+/g,""));
+        return priceToNumber < value;
       });
     }
+  }
+
+  formatLabel(value: number | null) {
+    if (!value) {
+      return 0;
+    }
+    
+    if (value >= 1000) {
+      // this.filterBy('Only prices smaller than', value);
+      return '$' + Math.round(value / 1000) + 'k';
+    }
+
+    return value;
   }
 }

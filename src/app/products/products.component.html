@@ -25,6 +25,12 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <mat-slider
+        thumbLabel
+        [displayWith]="formatLabel"
+        tickInterval="1000"
+        [min]="minPrice"
+        [max]="maxPrice"></mat-slider>
     </form>
   </mat-sidenav>
   <mat-sidenav-content>
