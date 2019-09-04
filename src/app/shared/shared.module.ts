@@ -17,6 +17,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [],
@@ -40,7 +41,8 @@ import { MatInputModule } from '@angular/material/input';
     LayoutModule,
     MatListModule,
     MatExpansionModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
   ],
   exports: [
     FormsModule,
@@ -60,7 +62,8 @@ import { MatInputModule } from '@angular/material/input';
     LayoutModule,
     MatListModule,
     MatExpansionModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
   ]
 })
 export class SharedModule {}

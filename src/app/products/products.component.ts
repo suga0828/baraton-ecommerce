@@ -29,6 +29,37 @@ export class ProductsComponent implements OnInit, OnDestroy {
   searchFrom: FormGroup;
   searchSubscription: Subscription;
 
+  filterByOptions = [
+    { name: 'Show availables'},
+    { name: 'Show unavailables'},
+    { name: 'prices'},
+    { name: 'stock'},
+  ];
+
+  sortByOptions = [
+    {
+      name: 'Sort by Availability',
+      options: [
+        { name: 'Availables first', value: 'asc' },
+        { name: 'Availables last', value: 'desc' },
+      ]
+    },
+    {
+      name: 'Sort by Price',
+      options: [
+        { name: 'Low to Hight', value: 'asc' },
+        { name: 'Hight to Low', value: 'desc' },
+      ]
+    },
+    {
+      name: 'Sort by Quantity',
+      options: [
+        { name: 'Low to Hight', value: 'asc' },
+        { name: 'Hight to Low', value: 'desc' },
+      ]
+    }
+  ];
+
   constructor(
     private categoriesService: CategoriesService,
     private productsService: ProductsService,
@@ -54,18 +85,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .getCategories()
       .subscribe((categories: Category[]) => {
         this.categories = categories;
-        console.log(this.categories);
       });
   }
 
   buildSearchForm() {
     this.searchFrom = this.formBuilder.group({
-      search: ['']
+      search: [''],
+      filterBySelect: [''],
+      sortBySelect: ['']
     });
   }
 
   get search() {
     return this.searchFrom.get('search');
+  }
+
+  get sortBySelect() {
+    return this.searchFrom.get('sortBySelect');
+  }
+
+  get filterBySelect() {
+    return this.searchFrom.get('filterBySelect');
   }
 
   suscribeSearch() {
@@ -76,5 +116,47 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.searchSubscription.unsubscribe();
+  }
+
+  sortBy(name, sort) {
+    if (name === 'Sort by Availability') {
+      this.products = this.products.sort(function(x, y) {
+        return (x.available === y.available)? 0 : x.available? -1 : 1;
+      });
+    }
+    if (name === 'Sort by Quantity') {
+      this.products = this.products.sort( (x, y) => {
+        return x.quantity - y.quantity;
+      });
+    }
+    if (sort.name === 'Sort by Price') {
+      this.products = this.products.sort( (x, y) => {
+        const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g,""))
+        const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g,""))
+        console.log(firstPriceToNumber, secondPriceToNumber)
+        return firstPriceToNumber - secondPriceToNumber;
+      });
+    }
+    // Order
+    if( sort.value === 'asc') {
+      this.products
+    } else if ( sort.value === 'desc' ) {
+      this.products.reverse();
+    }
+  }
+
+  filterBy(sort) {
+    console.log(sort)
+    if (sort.name === 'Show availables') {
+      this.products = this.products.filter(item => {
+        console.log(item)
+        return item.available === true;
+      });
+    }
+    if (sort.name === 'prices') {
+      this.products = this.products.filter(item => {
+        return
+      });
+    }
   }
 }
