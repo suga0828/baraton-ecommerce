@@ -10,8 +10,10 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
+import { SearchPipe } from './pipes/search.pipe';
+
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, SearchPipe],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
