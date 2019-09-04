@@ -31,7 +31,7 @@
     </button>
     <div class="grid">
       <app-product-item
-        *ngFor="let product of products"
+        *ngFor="let product of products | search: query"
         class="grid__item"
         [product]="product"
       ></app-product-item>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { CategoriesService } from '../services/categories.service';
@@ -6,7 +6,7 @@ import { ProductsService } from '../services/products.service';
 import { Product } from '../interfaces/product';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Category } from '../interfaces/category';
 
@@ -15,9 +15,9 @@ import { Category } from '../interfaces/category';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+export class ProductsComponent implements OnInit, OnDestroy {
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
@@ -25,7 +25,9 @@ export class ProductsComponent implements OnInit {
 
   public products: Product[];
   public categories: Category[] = [] as Category[];
+  query: string;
   searchFrom: FormGroup;
+  searchSubscription: Subscription;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -38,21 +40,22 @@ export class ProductsComponent implements OnInit {
     this.getProducts();
     this.getCategories();
     this.buildSearchForm();
+    this.suscribeSearch();
   }
 
   getProducts() {
-    this.productsService
-      .getProducts()
-      .subscribe( (products: Product[]) => {
-        this.products = products;
-      });
+    this.productsService.getProducts().subscribe((products: Product[]) => {
+      this.products = products;
+    });
   }
 
   getCategories() {
-    this.categoriesService.getCategories().subscribe( (categories: Category[]) => {
-      this.categories = categories;
-      console.log(this.categories);
-    });
+    this.categoriesService
+      .getCategories()
+      .subscribe((categories: Category[]) => {
+        this.categories = categories;
+        console.log(this.categories);
+      });
   }
 
   buildSearchForm() {
@@ -63,5 +66,15 @@ export class ProductsComponent implements OnInit {
 
   get search() {
     return this.searchFrom.get('search');
+  }
+
+  suscribeSearch() {
+    this.searchSubscription = this.search.valueChanges.subscribe(() => {
+      this.query = this.search.value;
+    });
+  }
+
+  ngOnDestroy() {
+    this.searchSubscription.unsubscribe();
   }
 }

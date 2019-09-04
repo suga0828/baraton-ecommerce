@@ -4,6 +4,13 @@ mat-sidenav {
   position: absolute;
 }
 
+.mat-form-field {
+  width: 80%;
+  margin: 0 auto;
+  display: block;
+  padding: 10px 0;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -17,23 +24,23 @@ mat-sidenav {
 @media screen and (min-width: 480px) {
   .grid__item {
     flex-basis: 50%;
-  }  
+  }
 }
 
 @media screen and (min-width: 768px) {
   .grid__item {
     flex-basis: 33.33%;
-  }  
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .grid__item {
     flex-basis: 25%;
-  }  
+  }
 }
 
 @media screen and (min-width: 1180px) {
   .grid__item {
     flex-basis: 20%;
-  }  
+  }
 }
