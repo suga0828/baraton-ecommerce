@@ -2,11 +2,14 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{category.name}}
+        <mat-checkbox>{{ category.name }}</mat-checkbox>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <app-filter-item *ngFor="let subcategory of category.sublevels" [category]="subcategory"></app-filter-item>
+    <app-filter-item
+      *ngFor="let subcategory of category.sublevels"
+      [category]="subcategory"
+    ></app-filter-item>
   </mat-expansion-panel>
 </mat-accordion>
 

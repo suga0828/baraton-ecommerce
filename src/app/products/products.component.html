@@ -1,14 +1,21 @@
 <mat-sidenav-container>
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <form [formGroup]="searchFrom">
       <mat-form-field>
-        <input matInput placeholder="Search" formControlName="search">
+        <input matInput placeholder="Search" formControlName="search" />
       </mat-form-field>
       <ng-container *ngIf="categories">
-        <app-filter-item *ngFor="let category of categories" [category]="category"></app-filter-item>
+        <app-filter-item
+          *ngFor="let category of categories"
+          [category]="category"
+        ></app-filter-item>
       </ng-container>
     </form>
   </mat-sidenav>
@@ -18,11 +25,16 @@
       aria-label="Toggle sidenav"
       mat-icon-button
       (click)="drawer.toggle()"
-      *ngIf="isHandset$ | async">
+      *ngIf="isHandset$ | async"
+    >
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <div class="grid">
-      <app-product-item *ngFor="let product of products" class="grid__item" [product]="product"></app-product-item>
+      <app-product-item
+        *ngFor="let product of products"
+        class="grid__item"
+        [product]="product"
+      ></app-product-item>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
