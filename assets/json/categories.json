@@ -1,0 +1,77 @@
+{ "categories": [
+	{
+		"id": 1,
+		"name": "Bebidas",
+		"sublevels": [
+			{
+				"id": 2,
+				"name": "Gaseosas",
+				"sublevels": [
+					{
+						"id": 3,
+						"name": "Con azúcar"
+					},
+					{
+						"id": 4,
+						"name": "Sin azúcar"
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 5,
+		"name": "Desayunos",
+		"sublevels": [
+			{
+				"id": 6,
+				"name": "Salados",
+				"sublevels": [
+					{
+						"id": 7,
+						"name": "Empanadas"
+					},
+					{
+						"id": 8,
+						"name": "Arepas",
+						"sublevels": [
+							{
+								"id": 9,
+								"name": "De carne"
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 10,
+		"name": "Almuerzos",
+		"sublevels": [
+			{
+				"id": 11,
+				"name": "Arroz"
+			},
+			{
+				"id": 12,
+				"name": "Lasagna"
+			}
+		]
+	},
+	{
+		"id": 14,
+		"name": "Vinos",
+		"sublevels": [
+			{
+				"id": 14,
+				"name": "Tintos"
+			},
+			{
+				"id": 15,
+				"name": "Rosados"
+			}
+		]
+	}
+]
+}
