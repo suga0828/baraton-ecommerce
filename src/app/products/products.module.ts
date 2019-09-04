@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 import { ProductsComponent } from './products.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { FiltersComponent } from './filters/filters.component';
+import { FilterItemComponent } from './filter-item/filter-item.component';
 
 @NgModule({
-  declarations: [ProductsComponent, ProductItemComponent, FiltersComponent],
+  declarations: [ProductsComponent, ProductItemComponent, FiltersComponent, FilterItemComponent],
   imports: [
     CommonModule,
 

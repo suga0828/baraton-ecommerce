@@ -3,9 +3,14 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
+    <form [formGroup]="searchFrom">
+      <mat-form-field>
+        <input matInput placeholder="Search" formControlName="search">
+      </mat-form-field>
+      <ng-container *ngIf="categories">
+        <app-filter-item *ngFor="let category of categories" [category]="category"></app-filter-item>
+      </ng-container>
+    </form>
   </mat-sidenav>
   <mat-sidenav-content>
     <button

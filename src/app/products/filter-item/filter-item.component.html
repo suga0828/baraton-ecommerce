@@ -1,0 +1,15 @@
+<mat-accordion *ngIf="category.sublevels; else noSublevels">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{category.name}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <app-filter-item *ngFor="let subcategory of category.sublevels" [category]="subcategory"></app-filter-item>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<ng-template #noSublevels>
+  <mat-checkbox>{{ category.name }}</mat-checkbox>
+</ng-template>
