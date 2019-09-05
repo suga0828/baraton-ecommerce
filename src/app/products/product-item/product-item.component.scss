@@ -1,5 +1,8 @@
+@import '~src/scss/variables';
+
 .mat-card {
-  height: calc(100% - 32px);
+  min-height: 187px;
+  text-align: center;
 }
 
 .mat-card-header {
@@ -7,23 +10,8 @@
   justify-content: center;
 }
 
-.mat-card-header .mat-card-title {
-  margin-bottom: 0;
-}
-
-.mat-card-title {
-  text-align: center;
-}
-
-.mat-card-subtitle {
-  text-align: center;
-}
-
-.mat-card-content {
-  text-align: center;
-  color: red;
-}
-
-.mat-card-actions {
-  text-align: center;
+.card__price {
+  color: $c-brand;
+  font-weight: bold;
+  font-size: 24px;
 }

@@ -12,24 +12,26 @@
       <ng-container matColumnDef="quantity">
         <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button
-            *ngIf="element.quantity > 1"
-            mat-icon-button
-            color="primary"
-            (click)="deleteAnItem(element)"
-            aria-label="Delete an item to shopping cart"
-          >
-            <mat-icon>chevron_left</mat-icon>
-          </button>
-          {{ element.quantity }}
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="addProduct(element)"
-            aria-label="Add an item to shopping cart"
-          >
-            <mat-icon>chevron_right</mat-icon>
-          </button>
+          <div class="cell-end">
+            <button
+              *ngIf="element.quantity > 1"
+              mat-icon-button
+              color="primary"
+              (click)="deleteAnItem(element)"
+              aria-label="Delete an item to shopping cart"
+            >
+              <mat-icon>chevron_left</mat-icon>
+            </button>
+            <span>{{ element.quantity }}</span>
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="addProduct(element)"
+              aria-label="Add an item to shopping cart"
+            >
+              <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
         </mat-cell>
       </ng-container>
 
@@ -63,25 +65,34 @@
   <div class="shopping-cart__resume">
     <mat-card class="mat-elevation-z8">
       <mat-card-content>
-        <mat-list dense>
-          <h3 class="shopping-cart__subtitle" mat-subheader>Order summary</h3>
-          <ng-container *ngIf="products; else noProducts">
-            <mat-list-item *ngFor="let item of products">
-              <span>{{ item.name }}</span>
-              <span>{{ item.price | currency }}</span>
-            </mat-list-item>
+        <div class="" dense>
+          <h3 class="shopping-cart__subtitle">Order summary</h3>
+          <ng-container *ngIf="products && products.length; else noProducts">
+            <div
+              class="shopping-cart__resume-item"
+              *ngFor="let item of products"
+            >
+              <span>{{ item.name }} x {{ item.quantity }}</span>
+              <span class="shopping-cart__price">
+                {{ item.price | currency }}
+              </span>
+            </div>
           </ng-container>
           <ng-template #noProducts>
-            <mat-list-item>No products</mat-list-item>
+            <div>No products</div>
           </ng-template>
-          <mat-list-item class="card-divider">
-            <span class="mat-list-"></span>
-            Total Cost {{ total | currency }}
-          </mat-list-item>
-        </mat-list>
+          <div class="shopping-cart__resume-item card-divider">
+            Total Cost
+            <span class="shopping-cart__price">
+              {{ total | currency }}
+            </span>
+          </div>
+        </div>
       </mat-card-content>
       <mat-card-actions>
-        <button color="primary" mat-raised-button (click)="sendPurchase()">Checkout</button>
+        <button color="primary" mat-raised-button (click)="sendPurchase()">
+          Checkout
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>

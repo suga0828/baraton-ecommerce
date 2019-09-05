@@ -31,6 +31,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   query: string;
   searchFrom: FormGroup;
   searchSubscription: Subscription;
+  loading = true;
 
   filterByOptions = [
     { name: 'All', value: 'all', order: 'asc' },
@@ -73,6 +74,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.productsService.getProducts().subscribe((products: Product[]) => {
       this.initialProducts = products;
       this.products = products;
+      this.loading = false;
       this.takePrices(this.products);
       this.takeQuantities(this.products);
     });

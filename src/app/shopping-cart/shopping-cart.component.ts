@@ -30,25 +30,30 @@ export class ShoppingCartComponent implements OnInit {
 
   getProducts() {
     this.products = this.shoppingCartService.getProducts();
-    if (this.products) {
+    if (this.products && this.products.length) {
       this.dataSource = new MatTableDataSource<shoppingCartItem>(this.products);
       this.getTotal(this.products);
     } else {
       this.dataSource = new MatTableDataSource<shoppingCartItem>([]);
+      this.total = 0;
     }
   }
 
-  getTotal(product: shoppingCartItem[]) {
-    this.total = Number(
-      product.reduce((a, b) => ({
-        price: a.quantity * a.price + b.quantity * b.price,
-        quantity: 0,
-        available: true,
-        sublevel_id: 0,
-        name: '',
-        id: ''
-      })).price
-    );
+  getTotal(products: shoppingCartItem[]) {
+    if (products.length > 1) {
+      this.total = Number(
+        products.reduce((a, b) => ({
+          price: a.quantity * a.price + b.quantity * b.price,
+          quantity: 1,
+          available: true,
+          sublevel_id: 0,
+          name: '',
+          id: ''
+        })).price
+      );
+    } else {
+      this.total = products[0].quantity * products[0].price;
+    }
   }
 
   deleteProduct(product: Product) {
