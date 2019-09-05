@@ -8,12 +8,14 @@ import { Category } from 'src/app/interfaces/category';
   styleUrls: ['./filter-item.component.scss']
 })
 export class FilterItemComponent implements OnInit {
-
   @Input() public category: Category;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  emitChecked(event) {
+    console.log(this.category);
+    console.log(event);
   }
-
 }

@@ -2,7 +2,9 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-checkbox>{{ category.name }}</mat-checkbox>
+        <mat-checkbox (change)="emitChecked($event)">
+          {{ category.name }}
+        </mat-checkbox>
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -14,5 +16,8 @@
 </mat-accordion>
 
 <ng-template #noSublevels>
-  <mat-checkbox>{{ category.name }}</mat-checkbox>
+  <mat-checkbox (change)="emitChecked($event)">
+    {{ category.name }}
+  </mat-checkbox>
+  <br />
 </ng-template>
