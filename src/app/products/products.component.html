@@ -23,33 +23,38 @@
         ></app-filter-item>
       </ng-container>
       <div class="filter-item">
-        <p>Prices smaller than</p>
+        <p>Prices greater than</p>
         <mat-slider
+          #matSliderPrices
           thumbLabel
           color="primary"
           [displayWith]="formatPriceLabel"
           tickInterval="1000"
           [min]="minPrice"
           [max]="maxPrice"
-          (input)="filterByPrices($event.value)"
+          (input)="applyFilters()"
         ></mat-slider>
       </div>
       <div class="filter-item">
         <p>Quantities greater than</p>
         <mat-slider
+          #matSliderQuantities
           color="primary"
           thumbLabel
           [displayWith]="formatQuantityLabel"
           tickInterval="100"
           [min]="minQuantity"
           [max]="maxQuantity"
-          (input)="filterByQuantities($event.value)"
+          (input)="applyFilters()"
         ></mat-slider>
       </div>
       <mat-form-field class="filter-item">
         <mat-label>Filter by</mat-label>
-        <mat-select (selectionChange)="filterBy($event.value)">
-          <mat-option *ngFor="let option of filterByOptions" [value]="option">
+        <mat-select
+          (selectionChange)="applyFilters()"
+          formControlName="availabilityFilter"
+        >
+          <mat-option *ngFor="let option of filterByOptions" [value]="option.value">
             {{ option.name }}
           </mat-option>
         </mat-select>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { CategoriesService } from '../services/categories.service';
@@ -38,11 +38,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     { name: 'Only Availables', value: 'availability', order: 'asc' }
   ];
 
-  filterApplied = false;
-
+  @ViewChild('matSliderPrices', { static: false })
+  matSliderPrices: any;
   minPrice = 0;
   maxPrice = 0;
 
+  @ViewChild('matSliderQuantities', { static: false })
+  matSliderQuantities: any;
   minQuantity = 0;
   maxQuantity = 0;
 
@@ -114,7 +116,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   buildSearchForm() {
     this.searchFrom = this.formBuilder.group({
       search: [''],
-      filterBySelect: [''],
+      availabilityFilter: [''],
       sortBySelect: ['']
     });
   }
@@ -127,8 +129,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     return this.searchFrom.get('sortBySelect');
   }
 
-  get filterBySelect() {
-    return this.searchFrom.get('filterBySelect');
+  get availabilityFilter() {
+    return this.searchFrom.get('availabilityFilter');
   }
 
   suscribeSearch() {
@@ -167,34 +169,32 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  filterBy(filter) {
-    if (filter.value === 'all') {
-      this.products = this.initialProducts;
-    }
-    if (filter.value === 'availability') {
+  filterByAvailability(filter: string) {
+    if (filter === 'availability') {
       this.products = this.products.filter(item => {
         return item.available === true;
       });
     }
   }
 
-  isFilterApplied(reset?: boolean) {
-    if (reset || !this.filterApplied) {
-      this.products = this.initialProducts;
-    }
-  }
-
   filterByPrices(price: number) {
-    this.products = this.initialProducts.filter(item => {
+    this.products = this.products.filter(item => {
       const itemPrice = Number(item.price.replace(/[^0-9.-]+/g, ''));
-      return itemPrice < price;
+      return itemPrice > price;
     });
   }
 
   filterByQuantities(quantity: number) {
-    this.products = this.initialProducts.filter(item => {
+    this.products = this.products.filter(item => {
       return item.quantity > quantity;
     });
+  }
+
+  applyFilters() {
+    this.products = this.initialProducts;
+    this.filterByQuantities(this.matSliderQuantities.value);
+    this.filterByPrices(this.matSliderPrices.value);
+    this.filterByAvailability(this.availabilityFilter.value);
   }
 
   formatPriceLabel(value: number | null) {
