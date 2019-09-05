@@ -101,7 +101,7 @@ THE SOFTWARE.
 
 @angular/material/icon
 
-@angular/material/list
+@angular/material/progress-spinner
 
 @angular/material/select
 
