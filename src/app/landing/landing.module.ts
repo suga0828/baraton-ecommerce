@@ -5,12 +5,10 @@ import { LandingRoutingModule } from './landing-routing.module';
 
 import { HomeComponent } from './home/home.component';
 
-@NgModule({
-  declarations: [ HomeComponent ],
-  imports: [
-    CommonModule, 
+import { SharedModule } from '../shared/shared.module';
 
-    LandingRoutingModule,
-  ]
+@NgModule({
+  declarations: [HomeComponent],
+  imports: [CommonModule, LandingRoutingModule, SharedModule]
 })
-export class LandingModule { }
+export class LandingModule {}

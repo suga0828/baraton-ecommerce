@@ -1,3 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC|Lato|Oswald&display=swap');
+
+@import './variables';
+
+body {
+  font-family: $f-primary;
+  color: $c-text;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $f-secondary;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
 ul {
   list-style: none;
   margin: 0;

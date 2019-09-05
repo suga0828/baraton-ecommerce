@@ -1,5 +1,10 @@
+@import '~src/scss/variables';
+
 .footer {
-  background-color: grey;
+  background-color: $c-brand;
+  font-size: 14px;
+  padding: 16px 0;
+  color: $c-neutro;
 }
 
 .footer__row {
@@ -9,14 +14,60 @@
   display: flex;
   justify-content: center;
   align-content: center;
+  flex-wrap: wrap;
+}
+
+.footer__row_last {
+  padding-top: 25px;
 }
 
 .footer__column {
-  flex: 1 1 33.33%;
+  flex: 1 1 100%;
+  padding-right: 10px;
+  padding-bottom: 20px;
+  text-align: center;
+
+  &:last-of-type {
+    padding-right: 0;
+  }
 }
 
-.footer__link {
-  text-transform: uppercase;
-  color: white;
+.footer__title {
   font-weight: bold;
+  text-transform: uppercase;
+  line-height: 2;
+  font-size: 18px;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+  line-height: 1.8;
+}
+
+.footer__external {
+  font-weight: bold;
+  font-family: $f-secondary;
+  letter-spacing: 1px;
+}
+
+@media screen and (min-width: 480px) {
+  .footer__column {
+    flex: 1 1 50%;
+    padding-bottom: 0;
+
+    &:first-of-type {
+      flex: 1 1 100%;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .footer__column {
+    flex: 1 1 33.33%;
+  }
+
+  .footer__row {
+    flex-wrap: nowrap;
+  }
 }

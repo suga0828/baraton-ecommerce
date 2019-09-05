@@ -6,6 +6,7 @@ mat-sidenav {
 
 mat-sidenav-content {
   min-height: calc(100vh - 64px);
+  padding: 20px;
 }
 
 .filter-item {
@@ -30,7 +31,6 @@ mat-sidenav-content {
 .grid__header {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
 
   .mat-form-field {
     flex: 0 1 auto;

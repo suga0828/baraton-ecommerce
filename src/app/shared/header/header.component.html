@@ -1,18 +1,37 @@
-<mat-toolbar class="header" role="heading" color="accent">
+<mat-toolbar class="header" role="heading">
   <a routerLink="/landing">
-    <h1 class="header__brand">Baratón</h1>
+    <h2 class="header__brand">e-Baratón</h2>
   </a>
-  <nav class="navbar" role="navigation">
-    <a class="navbar-item" routerLink="/landing" routerLinkActive="active">
+  <button
+    class="header__button"
+    mat-icon-button
+    aria-label="Header menu button"
+    (click)="toggleMenu()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <nav class="navbar" role="navigation" #menu>
+    <a
+      class="navbar-item"
+      routerLink="/landing"
+      routerLinkActive="active"
+      (click)="toggleMenu()"
+    >
       Inicio
     </a>
-    <a class="navbar-item" routerLink="/products" routerLinkActive="active">
+    <a
+      class="navbar-item"
+      routerLink="/products"
+      routerLinkActive="active"
+      (click)="toggleMenu()"
+    >
       Products
     </a>
     <a
       class="navbar-item"
       routerLink="/shopping-cart"
       routerLinkActive="active"
+      (click)="toggleMenu()"
     >
       Shopping Cart
     </a>

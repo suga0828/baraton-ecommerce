@@ -1,0 +1,43 @@
+@import '~src/scss/variables';
+
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 40px 0;
+  min-height: calc(100vh - 262px);
+}
+
+.hero__image {
+  flex: 0 1 auto;
+
+  img {
+    width: 100%;
+  }
+}
+
+.hero__title {
+  flex: 1 1 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 100;
+
+  .hero__small {
+    font-family: $f-brand;
+    font-size: 100%;
+    font-weight: bold;
+    color: $c-brand;
+  }
+}
+
+.hero__text {
+  flex: 1 1 100%;
+  text-align: center;
+  margin: 10px;
+
+  p {
+    width: 70%;
+    margin: 0 auto;
+  }
+}

@@ -21,6 +21,7 @@
         <p>Prices smaller than</p>
         <mat-slider
           thumbLabel
+          color="primary"
           [displayWith]="formatPriceLabel"
           tickInterval="1000"
           [min]="minPrice"
@@ -31,6 +32,7 @@
       <div class="filter-item">
         <p>Quantities greater than</p>
         <mat-slider
+          color="primary"
           thumbLabel
           [displayWith]="formatQuantityLabel"
           tickInterval="100"
@@ -57,7 +59,8 @@
       (click)="drawer.toggle()"
       *ngIf="isHandset$ | async"
     >
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      <mat-icon aria-label="Side nav toggle icon">filter_list</mat-icon>
+      Filters
     </button>
     <div class="grid__header">
       <h2>Products</h2>
