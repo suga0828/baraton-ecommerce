@@ -73,6 +73,7 @@
         *ngFor="let product of products | search: query"
         class="grid__item"
         [product]="product"
+        (productToAdd)="addToShoppingCart($event)"
       ></app-product-item>
     </div>
   </mat-sidenav-content>

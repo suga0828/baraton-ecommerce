@@ -9,6 +9,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Category } from '../interfaces/category';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
@@ -56,7 +57,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private categoriesService: CategoriesService,
     private productsService: ProductsService,
     private breakpointObserver: BreakpointObserver,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private shoppingCartService: ShoppingCartService
   ) {}
 
   ngOnInit() {
@@ -210,5 +212,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
 
     return value;
+  }
+
+  addToShoppingCart(product: Product) {
+    this.shoppingCartService.addProduct(product);
   }
 }

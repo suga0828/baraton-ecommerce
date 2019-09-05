@@ -15,6 +15,6 @@
     <ng-template #unavailable>
       <button mat-button disabled>Unavailable</button>
     </ng-template>
-    <button mat-button>Add to shopping cart</button>
+    <button mat-button (click)="emitProductToShoppingCart(product)">Add to shopping cart</button>
   </mat-card-actions>
 </mat-card>
