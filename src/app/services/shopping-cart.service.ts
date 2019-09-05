@@ -18,9 +18,11 @@ export class ShoppingCartService {
     }
   }
 
-  addProduct(product: Product) {
+  addProduct(product: Product): string {
     this.checkProductInData(product);
     localStorage.setItem('data', JSON.stringify(this.shoppingCartData));
+    const message = `A ${product.name} was added to`;
+    return message;
   }
 
   checkProductInData(product: Product) {

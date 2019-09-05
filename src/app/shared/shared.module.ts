@@ -42,7 +42,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatListModule,
     MatExpansionModule,
     MatInputModule,
-    MatSelectModule,
+    MatSelectModule
   ],
   exports: [
     FormsModule,
@@ -63,7 +63,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatListModule,
     MatExpansionModule,
     MatInputModule,
-    MatSelectModule,
+    MatSelectModule
   ]
 })
 export class SharedModule {}

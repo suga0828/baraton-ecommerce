@@ -2,14 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { CategoriesService } from '../services/categories.service';
+import { Category } from '../interfaces/category';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../interfaces/product';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Category } from '../interfaces/category';
+
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomSnackbarComponent } from '../shared/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-products',
@@ -50,7 +53,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     { name: 'Price: Low to Hight', value: 'price', order: 'asc' },
     { name: 'Price: Hight to Low', value: 'price', order: 'desc' },
     { name: 'Quantity: Low to Hight', value: 'quantity', order: 'asc' },
-    { name: 'Quantity: Hight to Low', value: 'quantity', order: 'desc' },
+    { name: 'Quantity: Hight to Low', value: 'quantity', order: 'desc' }
   ];
 
   constructor(
@@ -58,7 +61,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private breakpointObserver: BreakpointObserver,
     private formBuilder: FormBuilder,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -79,7 +83,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   takePrices(products: Product[]) {
     for (let i = 0; i < products.length; i++) {
-      const price = Number(products[i].price.replace(/[^0-9.-]+/g,""))
+      const price = Number(products[i].price.replace(/[^0-9.-]+/g, ''));
       if (this.minPrice > price) {
         this.minPrice = price;
       }
@@ -141,25 +145,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
   sortBy(sort) {
     if (sort.value === 'availability') {
       this.products = this.products.sort(function(x, y) {
-        return (x.available === y.available)? 0 : x.available? -1 : 1;
+        return x.available === y.available ? 0 : x.available ? -1 : 1;
       });
     }
     if (sort.value === 'quantity') {
-      this.products = this.products.sort( (x, y) => {
+      this.products = this.products.sort((x, y) => {
         return x.quantity - y.quantity;
       });
     }
     if (sort.value === 'price') {
-      this.products = this.products.sort( (x, y) => {
-        const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g,""));
-        const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g,""));
+      this.products = this.products.sort((x, y) => {
+        const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g, ''));
+        const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g, ''));
         return firstPriceToNumber - secondPriceToNumber;
       });
     }
     // Order
-    if( sort.order === 'asc') {
-      this.products
-    } else if ( sort.order === 'desc' ) {
+    if (sort.order === 'asc') {
+      this.products;
+    } else if (sort.order === 'desc') {
       this.products.reverse();
     }
   }
@@ -182,14 +186,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   filterByPrices(price: number) {
-    this.products = this.products.filter(item => {
-      const itemPrice = Number(item.price.replace(/[^0-9.-]+/g,""))
-      return itemPrice > price;
+    this.products = this.initialProducts.filter(item => {
+      const itemPrice = Number(item.price.replace(/[^0-9.-]+/g, ''));
+      return itemPrice < price;
     });
   }
 
   filterByQuantities(quantity: number) {
-    this.products = this.products.filter(item => {
+    this.products = this.initialProducts.filter(item => {
       return item.quantity > quantity;
     });
   }
@@ -198,7 +202,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     if (!value) {
       return 0;
     }
-    
+
     if (value >= 1000) {
       return '$' + Math.round(value / 1000) + 'k';
     }
@@ -215,6 +219,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   addToShoppingCart(product: Product) {
-    this.shoppingCartService.addProduct(product);
+    const message = this.shoppingCartService.addProduct(product);
+    this.productAddedNotification(message);
+  }
+
+  productAddedNotification(message: string) {
+    this._snackBar.openFromComponent(CustomSnackbarComponent, {
+      duration: 4000000,
+      data: message
+    });
   }
 }

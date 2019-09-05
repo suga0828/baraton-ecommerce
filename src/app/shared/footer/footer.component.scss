@@ -1,7 +1,18 @@
 .footer {
+  background-color: grey;
+}
+
+.footer__row {
+  width: 70%;
+  margin: 0 auto;
+  max-width: 1180px;
   display: flex;
   justify-content: center;
   align-content: center;
+}
+
+.footer__column {
+  flex: 1 1 33.33%;
 }
 
 .footer__link {

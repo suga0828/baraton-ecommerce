@@ -10,11 +10,15 @@
   </mat-card-content>
   <mat-card-actions>
     <ng-container *ngIf="product.available; else unavailable">
-      <button class="no-hover" mat-button [disableRipple]="true">Available</button>
+      <button class="no-hover" mat-button [disableRipple]="true">
+        Available
+      </button>
+      <button mat-button (click)="emitProductToShoppingCart(product)">
+        Add to shopping cart
+      </button>
     </ng-container>
     <ng-template #unavailable>
       <button mat-button disabled>Unavailable</button>
     </ng-template>
-    <button mat-button (click)="emitProductToShoppingCart(product)">Add to shopping cart</button>
   </mat-card-actions>
 </mat-card>

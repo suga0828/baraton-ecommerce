@@ -10,8 +10,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
+import { CustomSnackbarComponent } from './shared/custom-snackbar/custom-snackbar.component';
+
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    CustomSnackbarComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -23,6 +30,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [CustomSnackbarComponent]
 })
 export class AppModule {}
