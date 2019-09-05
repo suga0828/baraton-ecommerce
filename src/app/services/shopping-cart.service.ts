@@ -7,39 +7,44 @@ import { shoppingCartItem } from '../interfaces/shopping-cart-data';
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  shoppingCartData: shoppingCartItem[];
 
-  shoppingCartData: shoppingCartItem[] = [];
-
-  constructor() { }
+  constructor() {
+    const data = JSON.parse(localStorage.getItem('data'));
+    if (data) {
+      this.shoppingCartData = data;
+    } else {
+      this.shoppingCartData = [];
+    }
+  }
 
   addProduct(product: Product) {
-    this.checkLocalStorage(product);
+    this.checkProductInData(product);
     localStorage.setItem('data', JSON.stringify(this.shoppingCartData));
   }
 
-  checkLocalStorage(product: Product) {
-    let data: shoppingCartItem[] = JSON.parse(localStorage.getItem('data'));
-    if (data) {
-      this.checkProductInData(data, product);
+  checkProductInData(product: Product) {
+    if (this.shoppingCartData.length) {
+      const data = this.shoppingCartData;
+      for (let i = 0; i < data.length; i++) {
+        if (this.shoppingCartData[i].id === product.id) {
+          this.shoppingCartData[i].quantity++;
+        } else {
+          this.shoppingCartData.push({
+            quantity: 1,
+            name: product.name,
+            id: product.id,
+            price: product.price
+          });
+        }
+      }
     } else {
       this.shoppingCartData.push({
         quantity: 1,
-        product: product
+        name: product.name,
+        id: product.id,
+        price: product.price
       });
     }
-  }
-
-  checkProductInData(data: shoppingCartItem[], product: Product) {
-    console.log(data, product)
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].product === product) {
-        data[i].quantity++
-      }
-    }
-    this.shoppingCartData = data;
-  }
-
-  getProductInShoppingCart() {
-    return JSON.parse(localStorage.getItem('currentUser'));
   }
 }
