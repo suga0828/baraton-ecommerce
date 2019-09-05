@@ -91,15 +91,27 @@ THE SOFTWARE.
 
 @angular/material/checkbox
 
+@angular/material/core
+
+@angular/material/dialog
+
 @angular/material/expansion
 
 @angular/material/form-field
 
 @angular/material/icon
 
+@angular/material/list
+
+@angular/material/select
+
 @angular/material/sidenav
 
+@angular/material/slider
+
 @angular/material/snack-bar
+
+@angular/material/table
 
 @angular/material/toolbar
 
