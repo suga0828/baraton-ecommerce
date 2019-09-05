@@ -1,8 +1,8 @@
 export interface Product {
-  quantity: number,
-  price: string,
-  available: true,
-  sublevel_id: number,
-  name: string,
-  id: string
+  quantity: number;
+  price: string;
+  available: true;
+  sublevel_id: number;
+  name: string;
+  id: string;
 }

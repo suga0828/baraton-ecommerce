@@ -5,12 +5,10 @@ import { ShoppingCartRoutingModule } from './shopping-cart-routing.module';
 
 import { ShoppingCartComponent } from './shopping-cart.component';
 
-@NgModule({
-  declarations: [ ShoppingCartComponent ],
-  imports: [
-    CommonModule,
+import { SharedModule } from '../shared/shared.module';
 
-    ShoppingCartRoutingModule
-  ]
+@NgModule({
+  declarations: [ShoppingCartComponent],
+  imports: [CommonModule, ShoppingCartRoutingModule, SharedModule]
 })
-export class ShoppingCartModule { }
+export class ShoppingCartModule {}

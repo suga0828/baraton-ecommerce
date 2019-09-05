@@ -8,6 +8,7 @@
   color: $c-text;
   font-size: 12px;
   position: relative;
+  z-index: 2;
 }
 
 .header__brand {
@@ -36,7 +37,6 @@
   top: 64px;
 
   &.showMenu {
-    z-index: 2;
     opacity: 1;
   }
 }
@@ -53,6 +53,10 @@
 
   .navbar {
     display: flex;
+    position: static;
+    width: auto;
+    box-shadow: none;
+    opacity: 1;
 
     &.showMenu {
       position: static;

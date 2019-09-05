@@ -11,8 +11,6 @@ import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ShoppingCartService } from '../services/shopping-cart.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CustomSnackbarComponent } from '../shared/custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-products',
@@ -61,8 +59,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private productsService: ProductsService,
     private breakpointObserver: BreakpointObserver,
     private formBuilder: FormBuilder,
-    private shoppingCartService: ShoppingCartService,
-    private _snackBar: MatSnackBar
+    private shoppingCartService: ShoppingCartService
   ) {}
 
   ngOnInit() {
@@ -219,14 +216,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   addToShoppingCart(product: Product) {
-    const message = this.shoppingCartService.addProduct(product);
-    this.productAddedNotification(message);
-  }
-
-  productAddedNotification(message: string) {
-    this._snackBar.openFromComponent(CustomSnackbarComponent, {
-      duration: 4000000,
-      data: message
-    });
+    this.shoppingCartService.addProduct(product);
   }
 }

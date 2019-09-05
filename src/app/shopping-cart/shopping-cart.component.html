@@ -1,1 +1,88 @@
-<p>shopping-cart works!</p>
+<section class="shopping-cart">
+  <h1 class="shopping-cart__title">Shopping Cart</h1>
+  <div class="shopping-cart__products">
+    <mat-table [dataSource]="dataSource">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Product name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+      </ng-container>
+
+      <!-- Quantity Column -->
+      <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.quantity > 1"
+            mat-icon-button
+            color="primary"
+            (click)="deleteAnItem(element)"
+            aria-label="Delete an item to shopping cart"
+          >
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+          {{ element.quantity }}
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addProduct(element)"
+            aria-label="Add an item to shopping cart"
+          >
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- pRICE Column -->
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.price | currency }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Options Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="deleteProduct(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <div *ngIf="dataSource.data">
+      <mat-toolbar color="primary" *ngIf="!dataSource.data.length">
+        No products in shopping cart
+      </mat-toolbar>
+    </div>
+  </div>
+  <div class="shopping-cart__resume">
+    <mat-card class="mat-elevation-z8">
+      <mat-card-content>
+        <mat-list dense>
+          <h3 class="shopping-cart__subtitle" mat-subheader>Order summary</h3>
+          <ng-container *ngIf="products; else noProducts">
+            <mat-list-item *ngFor="let item of products">
+              <span>{{ item.name }}</span>
+              <span>{{ item.price | currency }}</span>
+            </mat-list-item>
+          </ng-container>
+          <ng-template #noProducts>
+            <mat-list-item>No products</mat-list-item>
+          </ng-template>
+          <mat-list-item class="card-divider">
+            <span class="mat-list-"></span>
+            Total Cost {{ total | currency }}
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button color="primary" mat-raised-button (click)="sendPurchase()">Checkout</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>

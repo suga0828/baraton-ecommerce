@@ -9,7 +9,7 @@
   >
     <form [formGroup]="searchFrom">
       <mat-form-field class="filter-item">
-        <input matInput placeholder="Search" formControlName="search" />
+        <input matInput placeholder="Search" formControlName="search" autocomplete="off"/>
       </mat-form-field>
       <ng-container *ngIf="categories">
         <app-filter-item

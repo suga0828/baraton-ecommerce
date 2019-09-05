@@ -1,11 +1,11 @@
 mat-sidenav {
   width: 250px;
-  max-height: calc(100vh - 64px);
+  min-height: calc(100vh - 246px);
   position: absolute;
 }
 
 mat-sidenav-content {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 246px);
   padding: 20px;
 }
 
@@ -31,6 +31,7 @@ mat-sidenav-content {
 .grid__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   .mat-form-field {
     flex: 0 1 auto;
