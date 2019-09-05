@@ -4,16 +4,32 @@ mat-sidenav {
   position: absolute;
 }
 
-.mat-form-field {
+.filter-item {
   width: 80%;
   margin: 0 auto;
   display: block;
   padding: 10px 0;
+
+  .mat-slider {
+    width: 100%;
+  }
 }
 
 .grid {
   display: flex;
   flex-wrap: wrap;
+  min-height: calc(100vh - 64px);
+}
+
+.grid__header {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+
+  .mat-form-field {
+    flex: 0 1 auto;
+  }
 }
 
 .grid__item {

@@ -8,7 +8,7 @@
     [opened]="(isHandset$ | async) === false"
   >
     <form [formGroup]="searchFrom">
-      <mat-form-field>
+      <mat-form-field class="filter-item">
         <input matInput placeholder="Search" formControlName="search" />
       </mat-form-field>
       <ng-container *ngIf="categories">
@@ -17,20 +17,34 @@
           [category]="category"
         ></app-filter-item>
       </ng-container>
-      <mat-form-field *ngFor="let sort of sortByOptions">
-        <mat-label>{{ sort.name }}</mat-label>
-        <mat-select (selectionChange)="sortBy(sort.name, $event.value)">
-          <mat-option *ngFor="let option of sort.options" [value]="option">
+      <div class="filter-item">
+        <p>Prices greater than</p>
+        <mat-slider
+          thumbLabel
+          [displayWith]="formatPriceLabel"
+          tickInterval="1000"
+          [min]="minPrice"
+          [max]="maxPrice"
+          (input)="filterByPrices($event.value)"></mat-slider>
+      </div>
+      <div class="filter-item">
+        <p>Quantities greater than</p>
+        <mat-slider
+          thumbLabel
+          [displayWith]="formatQuantityLabel"
+          tickInterval="100"
+          [min]="minQuantity"
+          [max]="maxQuantity"
+          (input)="filterByQuantities($event.value)"></mat-slider>
+      </div>
+      <mat-form-field class="filter-item">
+        <mat-label>Filter by</mat-label>
+        <mat-select (selectionChange)="filterBy($event.value)">
+          <mat-option *ngFor="let option of filterByOptions" [value]="option">
             {{option.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-slider
-        thumbLabel
-        [displayWith]="formatLabel"
-        tickInterval="1000"
-        [min]="minPrice"
-        [max]="maxPrice"></mat-slider>
     </form>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -44,6 +58,17 @@
       <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
     <div class="grid">
+      <div class="grid__header">
+        <h2>Products</h2>
+        <mat-form-field>
+          <mat-label>Sort by</mat-label>
+          <mat-select (selectionChange)="sortBy($event.value)">
+            <mat-option *ngFor="let option of sortByOptions" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
       <app-product-item
         *ngFor="let product of products | search: query"
         class="grid__item"

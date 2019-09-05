@@ -24,42 +24,32 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
 
   public products: Product[];
+  public initialProducts: Product[];
   public categories: Category[] = [] as Category[];
   query: string;
   searchFrom: FormGroup;
   searchSubscription: Subscription;
 
   filterByOptions = [
-    { name: 'Only Availables' },
-    { name: 'Only prices smaller than' },
-    { name: 'Only amount smaller than' },
+    { name: 'All', value: 'all', order: 'asc' },
+    { name: 'Only Availables', value: 'availability', order: 'asc' }
   ];
+
+  filterApplied = false;
 
   minPrice = 0;
   maxPrice = 0;
 
+  minQuantity = 0;
+  maxQuantity = 0;
+
   sortByOptions = [
-    {
-      name: 'Sort by Availability',
-      options: [
-        { name: 'Availables first', value: 'asc' },
-        { name: 'Availables last', value: 'desc' },
-      ]
-    },
-    {
-      name: 'Sort by Price',
-      options: [
-        { name: 'Low to Hight', value: 'asc' },
-        { name: 'Hight to Low', value: 'desc' },
-      ]
-    },
-    {
-      name: 'Sort by Quantity',
-      options: [
-        { name: 'Low to Hight', value: 'asc' },
-        { name: 'Hight to Low', value: 'desc' },
-      ]
-    }
+    { name: 'Availables first', value: 'availability', order: 'asc' },
+    { name: 'Availables last', value: 'availability', order: 'desc' },
+    { name: 'Price: Low to Hight', value: 'price', order: 'asc' },
+    { name: 'Price: Hight to Low', value: 'price', order: 'desc' },
+    { name: 'Quantity: Low to Hight', value: 'quantity', order: 'asc' },
+    { name: 'Quantity: Hight to Low', value: 'quantity', order: 'desc' },
   ];
 
   constructor(
@@ -78,12 +68,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   getProducts() {
     this.productsService.getProducts().subscribe((products: Product[]) => {
+      this.initialProducts = products;
       this.products = products;
       this.takePrices(this.products);
+      this.takeQuantities(this.products);
     });
   }
 
-  takePrices(products) {
+  takePrices(products: Product[]) {
     for (let i = 0; i < products.length; i++) {
       const price = Number(products[i].price.replace(/[^0-9.-]+/g,""))
       if (this.minPrice > price) {
@@ -91,6 +83,17 @@ export class ProductsComponent implements OnInit, OnDestroy {
       }
       if (this.maxPrice < price) {
         this.maxPrice = price;
+      }
+    }
+  }
+
+  takeQuantities(products: Product[]) {
+    for (let i = 0; i < products.length; i++) {
+      if (this.minQuantity > products[i].quantity) {
+        this.minQuantity = products[i].quantity;
+      }
+      if (this.maxQuantity < products[i].quantity) {
+        this.maxQuantity = products[i].quantity;
       }
     }
   }
@@ -133,19 +136,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.searchSubscription.unsubscribe();
   }
 
-  sortBy(name, sort) {
-    console.log(name, sort);
-    if (name === 'Sort by Availability') {
+  sortBy(sort) {
+    if (sort.value === 'availability') {
       this.products = this.products.sort(function(x, y) {
         return (x.available === y.available)? 0 : x.available? -1 : 1;
       });
     }
-    if (name === 'Sort by Quantity') {
+    if (sort.value === 'quantity') {
       this.products = this.products.sort( (x, y) => {
         return x.quantity - y.quantity;
       });
     }
-    if (name === 'Sort by Price') {
+    if (sort.value === 'price') {
       this.products = this.products.sort( (x, y) => {
         const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g,""));
         const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g,""));
@@ -153,37 +155,58 @@ export class ProductsComponent implements OnInit, OnDestroy {
       });
     }
     // Order
-    if( sort.value === 'asc') {
+    if( sort.order === 'asc') {
       this.products
-    } else if ( sort.value === 'desc' ) {
+    } else if ( sort.order === 'desc' ) {
       this.products.reverse();
     }
   }
 
-  filterBy(sort, value?) {
-    console.log(sort)
-    if (sort.name === 'Show availables') {
-      this.products = this.products.filter(item => {
-        console.log(item)
-        return item.available === true;
-      });
+  filterBy(filter) {
+    if (filter.value === 'all') {
+      this.products = this.initialProducts;
     }
-    if (sort.name === 'Only prices smaller than') {
+    if (filter.value === 'availability') {
       this.products = this.products.filter(item => {
-        const priceToNumber = Number(item.price.replace(/[^0-9.-]+/g,""));
-        return priceToNumber < value;
+        return item.available === true;
       });
     }
   }
 
-  formatLabel(value: number | null) {
+  isFilterApplied(reset?: boolean) {
+    if (reset || !this.filterApplied) {
+      this.products = this.initialProducts;
+    }
+  }
+
+  filterByPrices(price: number) {
+    this.products = this.products.filter(item => {
+      const itemPrice = Number(item.price.replace(/[^0-9.-]+/g,""))
+      return itemPrice > price;
+    });
+  }
+
+  filterByQuantities(quantity: number) {
+    this.products = this.products.filter(item => {
+      return item.quantity > quantity;
+    });
+  }
+
+  formatPriceLabel(value: number | null) {
     if (!value) {
       return 0;
     }
     
     if (value >= 1000) {
-      // this.filterBy('Only prices smaller than', value);
       return '$' + Math.round(value / 1000) + 'k';
+    }
+
+    return value;
+  }
+
+  formatQuantityLabel(value: number | null) {
+    if (!value) {
+      return 0;
     }
 
     return value;
