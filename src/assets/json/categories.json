@@ -1,19 +1,19 @@
 {
   "categories": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Bebidas",
       "sublevels": [
         {
-          "id": 2,
+          "id": "1.1",
           "name": "Gaseosas",
           "sublevels": [
             {
-              "id": 3,
+              "id": "1.1.1",
               "name": "Con azúcar"
             },
             {
-              "id": 4,
+              "id": "1.1.2",
               "name": "Sin azúcar"
             }
           ]
@@ -21,23 +21,23 @@
       ]
     },
     {
-      "id": 5,
+      "id": "2",
       "name": "Desayunos",
       "sublevels": [
         {
-          "id": 6,
+          "id": "2.1",
           "name": "Fake 1",
           "sublevels": [
             {
-              "id": 7,
+              "id": "2.1.1",
               "name": "Fake 2"
             },
             {
-              "id": 8,
+              "id": "2.1.2",
               "name": "Fake 3",
               "sublevels": [
                 {
-                  "id": 9,
+                  "id": "2.1.2.1",
                   "name": "Fake 4"
                 }
               ]
@@ -47,29 +47,29 @@
       ]
     },
     {
-      "id": 10,
+      "id": "3",
       "name": "Almuerzos",
       "sublevels": [
         {
-          "id": 11,
+          "id": "3.1",
           "name": "Fake 5"
         },
         {
-          "id": 12,
+          "id": "3.2",
           "name": "Fake 6"
         }
       ]
     },
     {
-      "id": 13,
+      "id": "4",
       "name": "Vinos",
       "sublevels": [
         {
-          "id": 14,
+          "id": "4.1",
           "name": "Fake 8"
         },
         {
-          "id": 15,
+          "id": "4.2",
           "name": "Fake 9"
         }
       ]
