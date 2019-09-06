@@ -5,12 +5,13 @@ import { CategoriesService } from '../services/categories.service';
 import { Category } from '../interfaces/category';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../interfaces/product';
+import { ShoppingCartService } from '../services/shopping-cart.service';
+import { checkCategoryEvent } from '../interfaces/check-category-event';
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
@@ -28,6 +29,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public products: Product[];
   public initialProducts: Product[];
   public categories: Category[] = [] as Category[];
+  categoriesIdToFilter: number[] = [];
   query: string;
   searchFrom: FormGroup;
   searchSubscription: Subscription;
@@ -190,11 +192,32 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
+  filterByCategories() {
+    if (this.categoriesIdToFilter.length) {
+      for (let i = 0; i < this.categoriesIdToFilter.length; i++) {
+        this.products = this.products.filter(item => {
+          return item.sublevel_id === this.categoriesIdToFilter[i];
+        });
+      }
+    }
+  }
+
+  setCategoriesToFilter(event: checkCategoryEvent) {
+    if (event.checked) {
+      this.categoriesIdToFilter.push(event.id);
+    } else {
+      const cateogyIndex = this.categoriesIdToFilter.indexOf(event.id);
+      this.categoriesIdToFilter.splice(cateogyIndex, 1);
+    }
+    this.applyFilters();
+  }
+
   applyFilters() {
     this.products = this.initialProducts;
     this.filterByQuantities(this.matSliderQuantities.value);
     this.filterByPrices(this.matSliderPrices.value);
     this.filterByAvailability(this.availabilityFilter.value);
+    this.filterByCategories();
   }
 
   formatPriceLabel(value: number | null) {

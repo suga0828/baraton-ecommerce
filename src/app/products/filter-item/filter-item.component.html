@@ -2,7 +2,7 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-checkbox (change)="emitChecked($event)">
+        <mat-checkbox (change)="changeCheckbox($event, category)">
           {{ category.name }}
         </mat-checkbox>
       </mat-panel-title>
@@ -11,12 +11,13 @@
     <app-filter-item
       *ngFor="let subcategory of category.sublevels"
       [category]="subcategory"
+      (filterByCategoryId)="sendFilterToParent($event)"
     ></app-filter-item>
   </mat-expansion-panel>
 </mat-accordion>
 
 <ng-template #noSublevels>
-  <mat-checkbox (change)="emitChecked($event)">
+  <mat-checkbox (change)="changeCheckbox($event, category)">
     {{ category.name }}
   </mat-checkbox>
   <br />
