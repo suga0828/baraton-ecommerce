@@ -7,7 +7,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false"
   >
-    <form [formGroup]="searchFrom">
+    <form [formGroup]="filterForm">
       <mat-form-field class="filter-item">
         <input
           matInput
@@ -78,14 +78,16 @@
     </button>
     <div class="grid__header">
       <h2>Products</h2>
-      <mat-form-field>
-        <mat-label>Sort by</mat-label>
-        <mat-select (selectionChange)="sortBy($event.value)">
-          <mat-option *ngFor="let option of sortByOptions" [value]="option">
-            {{ option.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <form [formGroup]="sortForm">
+        <mat-form-field>
+          <mat-label>Sort by</mat-label>
+          <mat-select (selectionChange)="sortBy($event.value)" formControlName="sortBySelect">
+            <mat-option *ngFor="let option of sortByOptions" [value]="option">
+              {{ option.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
     </div>
     <div class="grid">
       <mat-spinner

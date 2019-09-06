@@ -30,7 +30,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public categories: Category[] = [] as Category[];
   categoriesIdToFilter: string[] = [];
   query: string;
-  searchFrom: FormGroup;
+  filterForm: FormGroup;
+  sortForm: FormGroup
   searchSubscription: Subscription;
   loading = true;
 
@@ -69,8 +70,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProducts();
     this.getCategories();
-    this.buildSearchForm();
+    this.buildFilterForm();
     this.suscribeSearch();
+    this.buildSortForm();
   }
 
   getProducts() {
@@ -114,24 +116,30 @@ export class ProductsComponent implements OnInit, OnDestroy {
       });
   }
 
-  buildSearchForm() {
-    this.searchFrom = this.formBuilder.group({
+  buildFilterForm() {
+    this.filterForm = this.formBuilder.group({
       search: [''],
-      availabilityFilter: [''],
-      sortBySelect: ['']
+      availabilityFilter: ['']
     });
   }
 
   get search() {
-    return this.searchFrom.get('search');
-  }
-
-  get sortBySelect() {
-    return this.searchFrom.get('sortBySelect');
+    return this.filterForm.get('search');
   }
 
   get availabilityFilter() {
-    return this.searchFrom.get('availabilityFilter');
+    return this.filterForm.get('availabilityFilter');
+  }
+
+  buildSortForm() {
+    this.sortForm = this.formBuilder.group({
+      sortBySelect: ['']
+    });
+  }
+
+
+  get sortBySelect() {
+    return this.sortForm.get('sortBySelect');
   }
 
   suscribeSearch() {
@@ -149,18 +157,18 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.products = this.products.sort(function(x, y) {
         return x.available === y.available ? 0 : x.available ? -1 : 1;
       });
-    }
-    if (sort.value === 'quantity') {
+    } else if (sort.value === 'quantity') {
       this.products = this.products.sort((x, y) => {
         return x.quantity - y.quantity;
       });
-    }
-    if (sort.value === 'price') {
+    } else if (sort.value === 'price') {
       this.products = this.products.sort((x, y) => {
         const firstPriceToNumber = Number(x.price.replace(/[^0-9.-]+/g, ''));
         const secondPriceToNumber = Number(y.price.replace(/[^0-9.-]+/g, ''));
         return firstPriceToNumber - secondPriceToNumber;
       });
+    } else {
+      this.products = this.products;
     }
     // Order
     if (sort.order === 'asc') {
@@ -225,6 +233,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.filterByPrices(this.matSliderPrices.value);
     this.filterByAvailability(this.availabilityFilter.value);
     this.filterByCategories();
+    this.sortBy(this.sortBySelect.value);
   }
 
   formatPriceLabel(value: number | null) {
