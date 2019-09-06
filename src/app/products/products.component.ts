@@ -12,7 +12,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -29,7 +28,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   public products: Product[];
   public initialProducts: Product[];
   public categories: Category[] = [] as Category[];
-  categoriesIdToFilter: number[] = [];
+  categoriesIdToFilter: string[] = [];
   query: string;
   searchFrom: FormGroup;
   searchSubscription: Subscription;
@@ -194,11 +193,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   filterByCategories() {
     if (this.categoriesIdToFilter.length) {
-      for (let i = 0; i < this.categoriesIdToFilter.length; i++) {
-        this.products = this.products.filter(item => {
-          return item.sublevel_id === this.categoriesIdToFilter[i];
-        });
-      }
+      this.products = this.products.filter(item => {
+        let containSubcategory = true;
+        for (let i = 0; i < this.categoriesIdToFilter.length; i++) {
+          const productIdSplited = item.sublevel_id.split('.');
+          const categoryIdSplited = this.categoriesIdToFilter[i].split('.');
+          categoryIdSplited.forEach((item, index, array) => {
+            if (!(item === productIdSplited[index])) {
+              containSubcategory = false;
+            }
+          });
+        }
+        return containSubcategory;
+      });
     }
   }
 

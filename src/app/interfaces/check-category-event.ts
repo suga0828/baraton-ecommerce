@@ -1,4 +1,4 @@
 export interface checkCategoryEvent {
-  id: number;
+  id: string;
   checked: boolean;
 }
