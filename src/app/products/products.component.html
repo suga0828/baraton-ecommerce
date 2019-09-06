@@ -81,7 +81,7 @@
       <form [formGroup]="sortForm">
         <mat-form-field>
           <mat-label>Sort by</mat-label>
-          <mat-select (selectionChange)="sortBy($event.value)" formControlName="sortBySelect">
+          <mat-select (selectionChange)="applyFilters()" formControlName="sortBySelect">
             <mat-option *ngFor="let option of sortByOptions" [value]="option">
               {{ option.name }}
             </mat-option>
