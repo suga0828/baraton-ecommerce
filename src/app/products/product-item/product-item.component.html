@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title>{{ product.name }}</mat-card-title>
-    <mat-card-subtitle>{{ product.quantity }} units</mat-card-subtitle>
+    <mat-card-subtitle>{{ product.quantity }} units <small class="card__categoy">({{ product.sublevel_id }})</small></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p class="card__price">

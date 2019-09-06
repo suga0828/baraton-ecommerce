@@ -1,7 +1,7 @@
 @import '~src/scss/variables';
 
 .mat-card {
-  min-height: 187px;
+  min-height: 197px;
   text-align: center;
 }
 
@@ -14,4 +14,9 @@
   color: $c-brand;
   font-weight: bold;
   font-size: 24px;
+}
+
+.card__categoy {
+  color: $c-black;
+  font-size: 10px;
 }
