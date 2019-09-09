@@ -18,6 +18,7 @@ Run `sh script.sh` to build the project. The build artifacts will be stored in t
 
 ## Comentarios adicionales
 
+- La aplicación implementa el patrón Lazy Loading (carga de módulos según se necesiten). Las peticiones http separadas en servicios y están listas para funcionar con API's externas usando el patrón del Observable de la programación reactiva.
 - Los id's de las categorias fueron modificados para que fuesen únicos y compuestos, en función del subnivel donde pudiesen encontrarse. Quedó de esta forma (puede leerse en el archivo categories.json), los demás son análogos: 
   1 Bebidas
     1.1 Gaseosas
