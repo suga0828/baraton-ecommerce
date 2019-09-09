@@ -25,13 +25,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
       shareReplay()
     );
 
-  public products: Product[];
+  public products: Product[] = [];
   public initialProducts: Product[];
   public categories: Category[] = [] as Category[];
   categoriesIdToFilter: string[] = [];
   query: string;
   filterForm: FormGroup;
-  sortForm: FormGroup
+  sortForm: FormGroup;
   searchSubscription: Subscription;
   loading = true;
 
@@ -136,7 +136,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       sortBySelect: ['']
     });
   }
-
 
   get sortBySelect() {
     return this.sortForm.get('sortBySelect');

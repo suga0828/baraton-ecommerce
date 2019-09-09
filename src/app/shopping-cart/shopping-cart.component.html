@@ -90,7 +90,12 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button color="primary" mat-raised-button (click)="sendPurchase()">
+        <button
+          color="primary"
+          mat-raised-button
+          [disabled]="!products.length"
+          (click)="sendPurchase()"
+        >
           Checkout
         </button>
       </mat-card-actions>

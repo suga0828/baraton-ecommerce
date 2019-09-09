@@ -1,8 +1,11 @@
 <mat-accordion *ngIf="category.sublevels; else noSublevels">
-  <mat-expansion-panel>
+  <mat-expansion-panel hideToggle="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <mat-checkbox (change)="changeCheckbox($event, category)">
+        <mat-checkbox
+          color="primary"
+          (change)="changeCheckbox($event, category)"
+        >
           {{ category.name }}
         </mat-checkbox>
       </mat-panel-title>
@@ -17,7 +20,7 @@
 </mat-accordion>
 
 <ng-template #noSublevels>
-  <mat-checkbox (change)="changeCheckbox($event, category)">
+  <mat-checkbox color="primary" (change)="changeCheckbox($event, category)">
     {{ category.name }}
   </mat-checkbox>
   <br />
