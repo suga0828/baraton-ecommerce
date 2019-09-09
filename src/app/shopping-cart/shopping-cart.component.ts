@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class ShoppingCartComponent implements OnInit {
   displayedColumns: string[] = ['name', 'quantity', 'price', 'actions'];
   dataSource: MatTableDataSource<shoppingCartItem>;
-  products: shoppingCartItem[];
+  products: shoppingCartItem[] = [];
   total = 0;
 
   constructor(
